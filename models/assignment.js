@@ -22,21 +22,7 @@ exports.getAll = function() {
       if(err) {
         reject(err);
       } else {
-        let newAssignments = assignments;
-        for (var i = 0; i < newAssignments.length; i++) {
-          if (newAssignments[i].score >= 90) {
-            newAssignments[i]["grade"] = "A";
-          } else if (newAssignments[i]).score >= 80) {
-            newAssignments[i]["grade"] = "B";
-          } else if (newAssignments[i]).score >= 70) {
-            newAssignments[i]["grade"] = "C";
-          } else if (newAssignments[i]).score >= 60) {
-            newAssignments[i]["grade"] = "D";
-          } else {
-            newAssignments[i]["grade"] = "F";
-          }
-        }
-        resolve(newAssignments);
+        resolve(assignments);
       }
     });
   });
