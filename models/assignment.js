@@ -22,20 +22,20 @@ exports.getAll = function() {
       if(err) {
         reject(err);
       } else {
-        let gradedAssignments = assignments.map(function(obj) {
-          if (obj.score >= 90) {
-            obj["grade"] = "A";
-          } else if (obj.score >= 80) {
-            obj["grade"] = "B";
-          } else if (obj.score >= 70) {
-            obj["grade"] = "C";
-          } else if (obj.score >= 60) {
-            obj["grade"] = "D";
+        for (var i = 0; i < assignments.length; i++) {
+          if (assignments[i].score >= 90) {
+            assignments[i]["grade"] = "A";
+          } else if (assignments[i]).score >= 80) {
+            assignments[i]["grade"] = "B";
+          } else if (assignments[i]).score >= 70) {
+            assignments[i]["grade"] = "C";
+          } else if (assignments[i]).score >= 60) {
+            assignments[i]["grade"] = "D";
           } else {
-            obj["grade"] = "F";
+            assignments[i]["grade"] = "F";
           }
-        })
-        resolve(gradedAssignments);
+        }
+        resolve(assignments);
       }
     });
   });
