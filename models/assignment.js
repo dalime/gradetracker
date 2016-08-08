@@ -22,7 +22,20 @@ exports.getAll = function() {
       if(err) {
         reject(err);
       } else {
-        resolve(assignments);
+        let gradedAssignments = assignments.map(function(obj) {
+          if (obj.score >= 90) {
+            obj["grade"] = "A";
+          } else if (obj.score >= 80) {
+            obj["grade"] = "B";
+          } else if (obj.score >= 70) {
+            obj["grade"] = "C";
+          } else if (obj.score >= 60) {
+            obj["grade"] = "D";
+          } else {
+            obj["grade"] = "F";
+          }
+        })
+        resolve(gradedAssignments);
       }
     });
   });
