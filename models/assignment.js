@@ -2,11 +2,11 @@ const db = require('../config/db.js');
 const squel = require('squel').useFlavour('mysql');
 const uuid = require('uuid');
 
-db.query(`create table if not exists assignments (
-    id varchar(50),
-    name varchar(100),
-    total int,
-    score int
+db.query(`CREATE TABLE assignments (
+    id VARCHAR(50),
+    name VARCHAR(100),
+    total INT,
+    score INT
   )`, err => {
     if(err) {
       console.log('Error creating table:', err);
