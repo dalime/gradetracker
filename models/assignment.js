@@ -2,7 +2,7 @@ const db = require('../config/db.js');
 const squel = require('squel').useFlavour('mysql');
 const uuid = require('uuid');
 
-db.query(`CREATE TABLE assignments (
+db.query(`CREATE TABLE IF NOT EXISTS assignments (
     id VARCHAR(50),
     name VARCHAR(100),
     total INT,
