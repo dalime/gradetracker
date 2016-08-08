@@ -6,6 +6,7 @@ const Assignment = require('../models/assignment.js');
 router.get('/', (req, res) => {
   Assignment.getAll()
     .then(assignments => {
+      console.log(assignemnts);
       res.send(assignments);
     })
     .catch(err => {
