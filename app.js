@@ -18,7 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Routes
-app.use('/assignments', require('./routes/assignments'));
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.use('/assignments', require('./routes/assignments.js'));
 
 // Server listen declaration
 app.listen(PORT, err => {

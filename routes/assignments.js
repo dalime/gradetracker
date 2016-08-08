@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Assignment = require('../models/assignment');
+const Assignment = require('../models/assignment.js');
 
 // Get All
 router.get('/', (req, res) => {

@@ -1,13 +1,12 @@
+const db = require('../config/db.js');
 const squel = require('squel').useFlavour('mysql');
 const uuid = require('uuid');
-const moment = require('moment');
-const connection = require('../config/db');
 
-connection.query(`create table if not exists assignments (
+db.query(`create table if not exists assignments (
     id varchar(50),
     name varchar(100),
     total int,
-    score int,
+    score int
   )`, err => {
     if(err) {
       console.log('Error creating table:', err);
@@ -19,7 +18,7 @@ exports.getAll = function() {
   return new Promise((resolve, reject) => {
     let sql = squel.select().from('assignments').toString();
 
-    connection.query(sql, (err, assignments) => {
+    db.query(sql, (err, assignments) => {
       if(err) {
         reject(err);
       } else {
@@ -37,7 +36,7 @@ exports.getOne = function(id) {
                    .where('id = ?', id)
                    .toString();
 
-    connection.query(sql, (err, assignments) => {
+    db.query(sql, (err, assignments) => {
       let assignment = assignments[0];
 
       if(err) {
@@ -54,14 +53,13 @@ exports.getOne = function(id) {
 // Create
 exports.create = function(newAssignment) {
   return new Promise((resolve, reject) => {
-    let timestamp = moment().format('YYYY/MM/DD HH:mm:ss');
 
     let sql = squel.insert()
                    .into('assignments')
                    .setFields(newAssignment)
                    .set('id', uuid())
                    .toString();
-    connection.query(sql, err => {
+    db.query(sql, err => {
       if(err) {
         reject(err);
       } else {
@@ -79,7 +77,7 @@ exports.delete = function(id) {
                    .where('id = ?', id)
                    .toString();
 
-    connection.query(sql, (err, result) => {
+    db.query(sql, (err, result) => {
       if(result.affectedRows === 0) {
         reject({error: 'Assignment not found.'})
       } else if(err) {
@@ -102,7 +100,7 @@ exports.update = function(id, updateObject) {
                    .where('id = ?', id)
                    .toString();
 
-    connection.query(sql, (err, returnObject) => {
+    db.query(sql, (err, returnObject) => {
       if(err) {
         reject(err);
       } else {
