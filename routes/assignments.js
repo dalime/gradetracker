@@ -7,8 +7,16 @@ router.get('/', (req, res) => {
   Assignment.getAll()
     .then(assignments => {
       for (let i = 0; i < assignments.length; i++) {
-        if (assignments[i].score / assignments[i].total === 0.7) {
+        if (assignments[i].score / assignments[i].total >= 0.9) {
+          assignments[i]["grade"] = "A";
+        } else if (assignments[i].score / assignments[i].total >= 0.8 || assignments[i].score / assignments[i].total <= 0.9) {
+          assignments[i]["grade"] = "B";
+        } else if (assignments[i].score / assignments[i].total >= 0.7 || assignments[i].score / assignments[i].total <= 0.8) {
           assignments[i]["grade"] = "C";
+        } else if (assignments[i].score / assignments[i].total >= 0.6 || assignments[i].score / assignments[i].total <= 0.7) {
+          assignments[i]["grade"] = "D";
+        } else {
+          assignments[i]["grade"] = "F";
         }
       }
       res.send(assignments);
