@@ -6,7 +6,11 @@ const Assignment = require('../models/assignment.js');
 router.get('/', (req, res) => {
   Assignment.getAll()
     .then(assignments => {
+      let totalTotals = 0;
+      let totalScores = 0;
       for (let i = 0; i < assignments.length; i++) {
+        totalTotals += assignments[i].total;
+        totalScores += assignments[i].score;
         if (assignments[i].score / assignments[i].total >= 0.9) {
           assignments[i]["grade"] = "A";
         } else if (assignments[i].score / assignments[i].total >= 0.8 || assignments[i].score / assignments[i].total < 0.9) {
@@ -19,12 +23,14 @@ router.get('/', (req, res) => {
           assignments[i]["grade"] = "F";
         }
       }
-      res.send(assignments);
+
+      res.send(assignments, `Total Scores = ${totalScores}`, `Total totals = ${totalTotals}`);
     })
     .catch(err => {
       res.status(400).send(err);
     });
 });
+
 
 // Get One
 router.get('/:id', (req, res) => {
