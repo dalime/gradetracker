@@ -6,7 +6,11 @@ const Assignment = require('../models/assignment.js');
 router.get('/', (req, res) => {
   Assignment.getAll()
     .then(assignments => {
-      console.log(assignments);
+      for (let i = 0; i < assignments.length; i++) {
+        if (assignments[i].score / assignments[i].total === 0.7) {
+          assignments[i]["grade"] = "C";
+        }
+      }
       res.send(assignments);
     })
     .catch(err => {
